@@ -1,0 +1,49 @@
+{
+  "name": "@hyework/api",
+  "version": "0.0.0",
+  "private": true,
+  "files": ["dist"],
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --passWithNoTests",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "clean": "rm -rf dist .turbo coverage"
+  },
+  "dependencies": {
+    "@hyework/shared": "workspace:*",
+    "@nestjs/common": "^12.0.0",
+    "@nestjs/config": "^12.0.0",
+    "@nestjs/core": "^12.0.0",
+    "@nestjs/platform-express": "^12.0.0",
+    "@nestjs/swagger": "^12.0.0",
+    "nestjs-i18n": "^10.5.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@hyework/eslint-config": "workspace:*",
+    "@hyework/typescript-config": "workspace:*",
+    "@nestjs/cli": "^12.0.0",
+    "@nestjs/schematics": "^12.0.0",
+    "@nestjs/testing": "^12.0.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "catalog:"
+  },
+  "jest": {
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": { "^.+\\.ts$": "ts-jest" },
+    "testEnvironment": "node"
+  }
+}

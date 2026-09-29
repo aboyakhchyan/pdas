@@ -1,0 +1,23 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# pnpm 10 blocks dependency lifecycle scripts by default — whitelist what we need
+onlyBuiltDependencies:
+  - "@nestjs/core"
+  - "@swc/core"
+  - esbuild
+  - sharp
+  - unrs-resolver
+
+# One version of shared deps for the whole repo. Reference with "catalog:" in package.json
+catalog:
+  typescript: ~6.0.0
+  "@types/node": ^24.0.0
+  react: ^19.2.0
+  react-dom: ^19.2.0
+  "@types/react": ^19.2.0
+  "@types/react-dom": ^19.2.0
+  next: ^16.0.0
+  eslint: ^9.39.0
+  zod: ^4.1.0

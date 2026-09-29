@@ -1,0 +1,12 @@
+{
+  "name": "@hyework/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev:mobile": "flutter run",
+    "build:apk": "flutter build apk --release",
+    "build:ios": "flutter build ipa --release",
+    "lint:mobile": "flutter analyze",
+    "test:mobile": "flutter test"
+  }
+}

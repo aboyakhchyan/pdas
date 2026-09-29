@@ -1,0 +1,83 @@
+# Runs the WHOLE stack in Docker on your machine, built from source (no registry, no nginx).
+# For day-to-day development prefer `pnpm infra:up` + `pnpm dev` — it has hot reload.
+# Use this to sanity-check the actual Dockerfiles/prod-like build before shipping.
+#
+#   pnpm docker:up      # build + start everything
+#   pnpm docker:down    # stop and remove
+#   pnpm docker:logs    # tail logs
+#
+# web :3000 · admin :3001 · api :4000 (docs at /docs) · meilisearch :7700 · mailpit UI :8025
+name: hyework-local
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: hyework
+      POSTGRES_PASSWORD: hyework
+      POSTGRES_DB: hyework
+    volumes: [pg-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hyework"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:8-alpine
+    volumes: [redis-data:/data]
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    environment:
+      MEILI_MASTER_KEY: hyework-dev-key
+    volumes: [meili-data:/meili_data]
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports: ["8025:8025"]
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/api.Dockerfile
+    ports: ["4000:4000"]
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+      DATABASE_URL: postgresql://hyework:hyework@postgres:5432/hyework
+      REDIS_URL: redis://redis:6379
+      MEILI_URL: http://meilisearch:7700
+      MEILI_MASTER_KEY: hyework-dev-key
+      SMTP_HOST: mailpit
+      SMTP_PORT: 1025
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/nextjs.Dockerfile
+      args:
+        APP: web
+    ports: ["3000:3000"]
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:4000/v1
+    depends_on: [api]
+
+  admin:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/nextjs.Dockerfile
+      args:
+        APP: admin
+    ports: ["3001:3000"]
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:4000/v1
+    depends_on: [api]
+
+volumes:
+  pg-data:
+  redis-data:
+  meili-data:

@@ -1,0 +1,16 @@
+{
+  "name": "@hyework/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@hyework/typescript-config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
