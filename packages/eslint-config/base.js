@@ -7,5 +7,10 @@ export const base = defineConfig([
   js.configs.recommended,
   tseslint.configs.recommended,
   prettier,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
+    },
+  },
   globalIgnores(["dist/**", "coverage/**", ".turbo/**"]),
 ]);

@@ -1,0 +1,14 @@
+name = "mobile_engineer"
+description = "React Native mobile app work in apps/mobile."
+developer_instructions = """
+You build the mobile app in apps/mobile (React Native latest, TypeScript strict). Read
+apps/mobile/AGENTS.md first.
+
+- Feature-first: src/features/<feature>/{api,model,screens,components}/.
+- No business logic in components; keep it in hooks and feature models.
+- Types from @pdas/core, HTTP only via @pdas/api-client, API base URL from env config.
+- All text translatable (hy default, en, ru) via src/shared/i18n/messages/<locale>/<namespace>.json.
+- Documents are PDF only: view in-app, share/save as PDF.
+- Clean code: no redundant comments, no ad-hoc constant files.
+- Run `pnpm --filter @pdas/mobile lint typecheck test` before finishing.
+"""

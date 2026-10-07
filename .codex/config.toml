@@ -1,0 +1,23 @@
+# Project-scoped Codex config. Loaded only when this project is trusted.
+# Personal settings (model, provider, auth, notifications) belong in ~/.codex/config.toml.
+# Instructions live in AGENTS.md; skills in .agents/skills/; subagents in .codex/agents/;
+# command rules in .codex/rules/; hooks in .codex/hooks.json.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[agents]
+max_concurrent_threads_per_session = 4
+
+# Same MCP servers as .mcp.json (Claude Code) — keep the two lists in sync.
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]

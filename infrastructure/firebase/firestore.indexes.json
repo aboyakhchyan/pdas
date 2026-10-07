@@ -1,0 +1,55 @@
+{
+    "indexes": [
+        {
+            "collectionGroup": "documents",
+            "queryScope": "COLLECTION",
+            "fields": [
+                {
+                    "fieldPath": "ownerId",
+                    "order": "ASCENDING"
+                },
+                {
+                    "fieldPath": "updatedAt",
+                    "order": "DESCENDING"
+                },
+                {
+                    "fieldPath": "__name__",
+                    "order": "DESCENDING"
+                }
+            ]
+        }
+    ],
+    "fieldOverrides": [
+        {
+            "collectionGroup": "documents",
+            "fieldPath": "content",
+            "indexes": []
+        },
+        {
+            "collectionGroup": "logs",
+            "fieldPath": "expiresAt",
+            "ttl": true,
+            "indexes": []
+        },
+        {
+            "collectionGroup": "logs",
+            "fieldPath": "message",
+            "indexes": []
+        },
+        {
+            "collectionGroup": "logs",
+            "fieldPath": "stack",
+            "indexes": []
+        },
+        {
+            "collectionGroup": "mailTemplates",
+            "fieldPath": "html",
+            "indexes": []
+        },
+        {
+            "collectionGroup": "mailTemplates",
+            "fieldPath": "text",
+            "indexes": []
+        }
+    ]
+}

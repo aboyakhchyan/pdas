@@ -9,7 +9,7 @@
                                     │
      ┌─────────────┬────────────┬───┴────────┬──────────────┬──────────────┐
   Firebase      Firestore     Firebase     AI provider    Redis        Meilisearch
-  Auth (roles)  (planned)     Storage     (Grok/Gemini)  (cache+queue) (template search)
+  Auth (roles)  (all data)    Storage     (Grok/Gemini)  (cache+queue) (template search)
 ```
 
 ## Domain
@@ -22,13 +22,14 @@ template + legal sources → validation → PDF render → stored in Firebase St
 
 ## Bounded contexts (DDD)
 
-- **identity** — users, roles (Firebase Auth custom claims: `user`, `lawyer`, `admin`).
+- **identity** — users, roles (Firebase Auth custom claims: `user`, `admin`, `super-admin`).
 - **templates** — document types, versioned templates, required fields per type.
 - **legal-sources** — normalized legal acts and official forms gathered from
   [hartak.am](https://www.hartak.am/) and [moj.gov.am](https://moj.gov.am/).
 - **generation** — orchestrates AI drafting behind an `AiProvider` port (Grok 4.3 or Gemini 3, TBD).
 - **documents** — generated documents, their versions and PDF files.
 - **rendering** — deterministic PDF rendering from validated content.
+- **notifications** — email through the Firebase Trigger Email extension; templates per locale.
 - **billing** — plans and paid documents (`Money` from packages/core).
 
 Each context: `domain` (entities, value objects, domain events, ports) → `application`

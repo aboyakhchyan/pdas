@@ -1,0 +1,15 @@
+{
+    "invalidRequest": "The request is invalid",
+    "malformedBody": "The request body could not be read",
+    "unauthenticated": "Sign-in is required",
+    "accessDenied": "Access denied",
+    "notFound": "Not found",
+    "conflict": "The data has changed. Refresh and try again",
+    "payloadTooLarge": "The file or request is too large",
+    "unsupportedMediaType": "This file type is not supported",
+    "contentInvalid": "The document data is invalid",
+    "tooManyRequests": "Too many requests. Try again in a moment",
+    "internal": "Something went wrong. We are already looking into it",
+    "serviceUnavailable": "The service is temporarily unavailable. Try again in a moment",
+    "timeout": "The operation took too long. Try again"
+}
