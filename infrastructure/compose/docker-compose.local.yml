@@ -7,18 +7,18 @@
 #   pnpm docker:logs    # tail logs
 #
 # web :3000 · admin :3001 · api :4000 (docs at /docs) · meilisearch :7700 · mailpit UI :8025
-name: hyework-local
+name: pdas-local
 
 services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: hyework
-      POSTGRES_PASSWORD: hyework
-      POSTGRES_DB: hyework
+      POSTGRES_USER: pdas
+      POSTGRES_PASSWORD: pdas
+      POSTGRES_DB: pdas
     volumes: [pg-data:/var/lib/postgresql/data]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hyework"]
+      test: ["CMD-SHELL", "pg_isready -U pdas"]
       interval: 5s
       retries: 10
 
@@ -29,7 +29,7 @@ services:
   meilisearch:
     image: getmeili/meilisearch:latest
     environment:
-      MEILI_MASTER_KEY: hyework-dev-key
+      MEILI_MASTER_KEY: pdas-dev-key
     volumes: [meili-data:/meili_data]
 
   mailpit:
@@ -45,10 +45,10 @@ services:
       NODE_ENV: production
       PORT: 4000
       CORS_ORIGINS: http://localhost:3000,http://localhost:3001
-      DATABASE_URL: postgresql://hyework:hyework@postgres:5432/hyework
+      DATABASE_URL: postgresql://pdas:pdas@postgres:5432/pdas
       REDIS_URL: redis://redis:6379
       MEILI_URL: http://meilisearch:7700
-      MEILI_MASTER_KEY: hyework-dev-key
+      MEILI_MASTER_KEY: pdas-dev-key
       SMTP_HOST: mailpit
       SMTP_PORT: 1025
     depends_on:

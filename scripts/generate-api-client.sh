@@ -12,9 +12,3 @@ echo "✔ fetched spec"
 (cd "$OUT" && pnpm dlx @hey-api/openapi-ts -i openapi.json -o src/generated)
 echo "✔ TypeScript client → $OUT/src/generated"
 
-if command -v openapi-generator-cli >/dev/null; then
-  openapi-generator-cli generate -i "$OUT/openapi.json" -g dart-dio -o apps/mobile/packages/api_client
-  echo "✔ Dart client → apps/mobile/packages/api_client"
-else
-  echo "openapi-generator-cli not found — skipping Dart client"
-fi

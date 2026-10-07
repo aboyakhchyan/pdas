@@ -1,18 +1,18 @@
-# Build from repo root: docker build -f infrastructure/docker/api.Dockerfile -t hyework-api .
+# Build from repo root: docker build -f infrastructure/docker/api.Dockerfile -t pdas-api .
 FROM node:24-alpine AS base
 RUN corepack enable
 WORKDIR /repo
 
 FROM base AS pruner
 COPY . .
-RUN pnpm dlx turbo@^2 prune @hyework/api --docker
+RUN pnpm dlx turbo@^2 prune @pdas/api --docker
 
 FROM base AS builder
 COPY --from=pruner /repo/out/json/ .
 RUN pnpm install --frozen-lockfile
 COPY --from=pruner /repo/out/full/ .
-RUN pnpm turbo run build --filter=@hyework/api \
- && pnpm --filter=@hyework/api deploy --prod --legacy /prod/api
+RUN pnpm turbo run build --filter=@pdas/api \
+ && pnpm --filter=@pdas/api deploy --prod --legacy /prod/api
 
 FROM node:24-alpine AS runner
 WORKDIR /app

@@ -1,17 +1,19 @@
 {
-  "name": "@hyework/eslint-config",
+  "name": "@pdas/eslint-config",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "exports": {
     "./base": "./base.js",
     "./next": "./next.js",
-    "./nest": "./nest.js"
+    "./nest": "./nest.js",
+    "./react-native": "./react-native.js"
   },
   "dependencies": {
     "@eslint/js": "^9.39.0",
     "eslint-config-next": "^16.0.0",
     "eslint-config-prettier": "^10.1.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "globals": "^17.0.0",
     "typescript-eslint": "^8.44.0"
   },

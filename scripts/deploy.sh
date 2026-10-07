@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 TAG="${1:?usage: deploy.sh <tag>}"
 HOST="${DEPLOY_HOST:?set DEPLOY_HOST, e.g. deploy@1.2.3.4}"
-DIR="${DEPLOY_DIR:-/opt/hyework}"
+DIR="${DEPLOY_DIR:-/opt/pdas}"
 COMPOSE="infrastructure/compose/docker-compose.prod.yml"
 
 rsync -azR "$COMPOSE" infrastructure/nginx "$HOST:$DIR/"

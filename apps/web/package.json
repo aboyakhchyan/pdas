@@ -1,5 +1,5 @@
 {
-  "name": "@hyework/web",
+  "name": "@pdas/web",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -11,17 +11,19 @@
     "clean": "rm -rf .next .turbo"
   },
   "dependencies": {
-    "@hyework/api-client": "workspace:*",
-    "@hyework/shared": "workspace:*",
-    "@hyework/ui": "workspace:*",
+    "@pdas/api-client": "workspace:*",
+    "@pdas/core": "workspace:*",
+    "@pdas/firebase": "workspace:*",
+    "@pdas/ui": "workspace:*",
     "next": "catalog:",
-    "next-intl": "^4.3.0",
+    "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@hyework/eslint-config": "workspace:*",
-    "@hyework/typescript-config": "workspace:*",
+    "@pdas/eslint-config": "workspace:*",
+    "@next/env": "catalog:",
+    "@pdas/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

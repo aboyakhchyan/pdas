@@ -1,18 +1,17 @@
 # Local dependencies only. Apps run on the host with `pnpm dev`.
-# File storage is real AWS S3 (dev-* bucket), not emulated locally — see apps/api/.env.example.
-name: hyework-dev
+name: pdas-dev
 
 services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: hyework
-      POSTGRES_PASSWORD: hyework
-      POSTGRES_DB: hyework
+      POSTGRES_USER: pdas
+      POSTGRES_PASSWORD: pdas
+      POSTGRES_DB: pdas
     ports: ["5432:5432"]
     volumes: [pg-data:/var/lib/postgresql/data]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U hyework"]
+      test: ["CMD-SHELL", "pg_isready -U pdas"]
       interval: 5s
       retries: 10
 
@@ -24,7 +23,7 @@ services:
   meilisearch:
     image: getmeili/meilisearch:latest
     environment:
-      MEILI_MASTER_KEY: hyework-dev-key
+      MEILI_MASTER_KEY: pdas-dev-key
     ports: ["7700:7700"]
     volumes: [meili-data:/meili_data]
 

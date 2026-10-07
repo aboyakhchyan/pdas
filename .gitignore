@@ -28,10 +28,5 @@ CLAUDE.local.md
 !.vscode/extensions.json
 *.log
 
-# flutter
-apps/mobile/.dart_tool/
-apps/mobile/build/
-apps/mobile/.flutter-plugins*
-
 # backups
 backups/

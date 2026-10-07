@@ -1,3 +1,3 @@
-import { base } from "@hyework/eslint-config/base";
+import { base } from '@pdas/eslint-config/base';
 
 export default base;

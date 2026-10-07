@@ -6,7 +6,7 @@ cd "$(dirname "$0")/../.."
 
 COMPOSE="${1:-infrastructure/compose/docker-compose.dev.yml}"
 mkdir -p backups
-FILE="backups/hyework-$(date +%Y%m%d-%H%M%S).sql.gz"
+FILE="backups/pdas-$(date +%Y%m%d-%H%M%S).sql.gz"
 
 docker compose -f "$COMPOSE" exec -T postgres sh -c 'pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB"' | gzip > "$FILE"
 echo "✔ $FILE"

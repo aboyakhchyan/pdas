@@ -1,5 +1,5 @@
 {
-  "name": "@hyework/typescript-config",
+  "name": "@pdas/typescript-config",
   "version": "0.0.0",
   "private": true,
   "files": ["*.json"]

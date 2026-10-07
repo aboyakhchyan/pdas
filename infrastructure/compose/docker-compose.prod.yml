@@ -1,5 +1,5 @@
 # Single-server production. Copy .env.example → .env next to this file on the server.
-name: hyework
+name: pdas
 
 x-app: &app
   restart: unless-stopped
@@ -8,18 +8,18 @@ x-app: &app
 services:
   api:
     <<: *app
-    image: ${REGISTRY}/hyework-api:${TAG:-latest}
+    image: ${REGISTRY}/pdas-api:${TAG:-latest}
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_started }
 
   web:
     <<: *app
-    image: ${REGISTRY}/hyework-web:${TAG:-latest}
+    image: ${REGISTRY}/pdas-web:${TAG:-latest}
 
   admin:
     <<: *app
-    image: ${REGISTRY}/hyework-admin:${TAG:-latest}
+    image: ${REGISTRY}/pdas-admin:${TAG:-latest}
 
   nginx:
     image: nginx:stable-alpine

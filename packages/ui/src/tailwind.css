@@ -1,3 +1,6 @@
-/* Tells Tailwind (in whichever app imports this) to scan this package's own source for classes.
-   Import it once from the app's global stylesheet — see apps/web or apps/admin globals.css. */
+@import './styles/global-variables.css';
+@import './styles/colors.css';
+@import './styles/fonts.css';
+@import './styles/typography.css';
+
 @source "./";

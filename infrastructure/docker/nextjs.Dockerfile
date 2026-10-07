@@ -1,6 +1,6 @@
 # Build from repo root:
-#   docker build -f infrastructure/docker/nextjs.Dockerfile --build-arg APP=web   -t hyework-web .
-#   docker build -f infrastructure/docker/nextjs.Dockerfile --build-arg APP=admin -t hyework-admin .
+#   docker build -f infrastructure/docker/nextjs.Dockerfile --build-arg APP=web   -t pdas-web .
+#   docker build -f infrastructure/docker/nextjs.Dockerfile --build-arg APP=admin -t pdas-admin .
 FROM node:24-alpine AS base
 RUN corepack enable
 WORKDIR /repo
@@ -8,7 +8,7 @@ WORKDIR /repo
 FROM base AS pruner
 ARG APP
 COPY . .
-RUN pnpm dlx turbo@^2 prune @hyework/${APP} --docker
+RUN pnpm dlx turbo@^2 prune @pdas/${APP} --docker
 
 FROM base AS builder
 ARG APP
@@ -16,7 +16,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=pruner /repo/out/json/ .
 RUN pnpm install --frozen-lockfile
 COPY --from=pruner /repo/out/full/ .
-RUN pnpm turbo run build --filter=@hyework/${APP}
+RUN pnpm turbo run build --filter=@pdas/${APP}
 
 FROM node:24-alpine AS runner
 ARG APP

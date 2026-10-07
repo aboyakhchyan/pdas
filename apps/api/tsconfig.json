@@ -1,5 +1,5 @@
 {
-  "extends": "@hyework/typescript-config/nestjs.json",
+  "extends": "@pdas/typescript-config/nestjs.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": ".",

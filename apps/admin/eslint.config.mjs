@@ -1,3 +1,3 @@
-import { next } from "@hyework/eslint-config/next";
+import { next } from "@pdas/eslint-config/next";
 
 export default next;

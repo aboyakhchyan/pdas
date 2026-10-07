@@ -1,3 +1,3 @@
-import { nest } from "@hyework/eslint-config/nest";
+import { nest } from "@pdas/eslint-config/nest";
 
 export default nest;

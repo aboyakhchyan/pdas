@@ -1,0 +1,49 @@
+{
+    "name": "@pdas/core",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./i18n/navigation": {
+            "types": "./dist/i18n/navigation.d.ts",
+            "default": "./dist/i18n/navigation.js"
+        },
+        "./i18n/routing": {
+            "types": "./dist/i18n/routing.d.ts",
+            "default": "./dist/i18n/routing.js"
+        },
+        "./i18n/translation": "./src/i18n/translation/index.ts"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "dev": "tsc -p tsconfig.json --watch --preserveWatchOutput",
+        "lint": "eslint .",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "clean": "rm -rf dist .turbo"
+    },
+    "peerDependencies": {
+        "next": "^16",
+        "react": "^19"
+    },
+    "dependencies": {
+        "next-intl": "catalog:",
+        "zod": "catalog:"
+    },
+    "devDependencies": {
+        "@pdas/eslint-config": "workspace:*",
+        "@pdas/typescript-config": "workspace:*",
+        "@types/react": "catalog:",
+        "eslint": "catalog:",
+        "next": "catalog:",
+        "react": "catalog:",
+        "typescript": "catalog:"
+    }
+}

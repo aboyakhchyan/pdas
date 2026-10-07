@@ -18,7 +18,7 @@ async function bootstrap() {
   if (config.get("NODE_ENV", { infer: true }) !== "production") {
     const document = SwaggerModule.createDocument(
       app,
-      new DocumentBuilder().setTitle("HyeWork API").setVersion("1.0").addBearerAuth().build(),
+      new DocumentBuilder().setTitle("PDAS API").setVersion("1.0").addBearerAuth().build(),
     );
     SwaggerModule.setup("docs", app, document, { jsonDocumentUrl: "docs/openapi.json" });
   }

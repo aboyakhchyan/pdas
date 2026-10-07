@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { Module } from "@nestjs/common";
-import { DEFAULT_LOCALE } from "@hyework/shared";
+import { DEFAULT_LOCALE } from "@pdas/core";
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from "nestjs-i18n";
 
 @Module({

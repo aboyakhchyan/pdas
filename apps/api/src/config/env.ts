@@ -7,6 +7,10 @@ export const envSchema = z.object({
   // Make these required once the corresponding modules are wired up
   DATABASE_URL: z.string().optional(),
   REDIS_URL: z.string().optional(),
+  FIREBASE_PROJECT_ID: z.string().optional(),
+  FIREBASE_CLIENT_EMAIL: z.string().optional(),
+  FIREBASE_PRIVATE_KEY: z.string().optional(),
+  FIREBASE_STORAGE_BUCKET: z.string().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;
