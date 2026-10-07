@@ -1,9 +1,16 @@
 {
-  "extends": "@pdas/typescript-config/nestjs.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": ".",
-    "types": ["node", "jest"]
-  },
-  "include": ["src", "test"]
+    "extends": "@pdas/typescript-config/nestjs.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": ".",
+        "paths": {
+            "@common/*": ["./src/common/*"],
+            "@config/*": ["./src/config/*"],
+            "@infra/*": ["./src/infra/*"],
+            "@modules/*": ["./src/modules/*"],
+            "@testing/*": ["./src/testing/*"]
+        },
+        "types": ["node", "jest", "multer"]
+    },
+    "include": ["src", "test"]
 }

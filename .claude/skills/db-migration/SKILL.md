@@ -1,13 +1,14 @@
 ---
 name: db-migration
-description: Change a persistence schema safely (Postgres migration or Firestore collection/index change).
+description: Change a Firestore data shape or index safely.
 ---
 
-1. Make sure local infra runs: `pnpm infra:up`.
-2. Change only the owning bounded context's adapter in `infrastructure/`; the domain stays untouched.
-3. Postgres: generate a named migration; never edit an already-applied one.
-   Firestore: update collection shape and `firestore.indexes.json` together.
-4. Changes must be backward compatible (expand → migrate data → contract in a later release):
-   new fields optional or with default, no renames/drops in the same release as code changes.
-5. Index every field used in hot filters and sorts.
-6. Run api tests.
+1. Change only the owning bounded context's adapter in `infrastructure/` and its zod record
+   schema; the domain stays untouched.
+2. Update `infrastructure/firebase/firestore.indexes.json` together with any new query; index every
+   field used in filters and sorts, exempt large maps (like document `content`) from indexing.
+3. Changes must be backward compatible (expand → backfill → contract in a later release): new
+   fields optional or defaulted in the record schema, no renames or drops in the same release.
+4. Backfills run as idempotent scripts using batched writes (≤ 500 per batch).
+5. Keep nesting under Firestore's 20-level limit and documents under 1 MiB.
+6. Deploy rules and indexes before the code that relies on them, then run api tests.

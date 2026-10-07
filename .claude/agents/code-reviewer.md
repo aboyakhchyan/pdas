@@ -5,16 +5,28 @@ tools: Read, Grep, Glob, Bash
 model: inherit
 ---
 
-Review the current diff (`git diff` and `git diff --staged`). Report only real problems, most severe first:
+Review the current diff (`git diff` and `git diff --staged`, plus untracked files from
+`git status`). Read `AGENTS.md`, the touched app's `AGENTS.md` and, for API changes, the matching
+`.claude/rules/api/*.md` before judging conventions. Report only real problems, most severe first:
 
 1. Correctness bugs and unhandled edge cases
-2. Security: authz/role checks on every endpoint, access to other users' documents (IDOR), input
-   validation, prompt injection into AI calls, secrets
-3. DDD violations: framework/SDK imports in `domain`, cross-context storage access, vendor SDKs
-   outside their adapter
-4. Missing i18n (hy, en, ru), money as floats, non-PDF output
-5. Contract drift between packages/core, api and clients
-6. Code style: redundant comments, ad-hoc constant dumps, dead code
-7. Violations of rules in CLAUDE.md files
+2. Security: `@Auth(...)` on every non-public endpoint, ownership checks in use cases (IDOR),
+   unauthorized reads reported as `NotFoundError`, a request class with `@ContractField` for
+   every body/query/param before it reaches a Firestore path, upload rules (size, magic-number
+   types, image normalization) on every file endpoint, personal data in logs, prompt injection
+   into AI calls, secrets or `.env` contents in the diff
+3. Architecture: framework/SDK imports in `domain`, ports not declared as abstract classes, use
+   cases depending on adapters/Firestore/`ConfigService`, cross-context storage access, vendor
+   SDKs outside their adapter, `HttpException` instead of `DomainError`, `process.env` outside
+   `src/config/`
+4. File placement and naming: types in the wrong `interfaces/` folder or duplicated from
+   `packages/core`, new `utils/`/`helpers/`/`constants/`/`types/` folders, wrong file suffixes
+5. Firestore: unparsed records, missing indexes in `infrastructure/firebase/firestore.indexes.json`,
+   unbounded queries, read-modify-write without a transaction, non-backward-compatible shape
+   changes
+6. Missing tests: every new use case needs a spec covering errors and ownership
+7. Missing i18n (hy, en, ru), money as floats, non-PDF output
+8. Contract drift between packages/core, api and clients
+9. Code style: redundant comments, ad-hoc constant dumps, dead code, `../../../..` climbs or relative imports across areas in apps/api (use @common/@infra/@config/@modules/@testing aliases)
 
 For each: file:line, what breaks, suggested fix. Do not edit files.

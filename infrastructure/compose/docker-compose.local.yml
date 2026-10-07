@@ -10,18 +10,6 @@
 name: pdas-local
 
 services:
-  postgres:
-    image: postgres:17-alpine
-    environment:
-      POSTGRES_USER: pdas
-      POSTGRES_PASSWORD: pdas
-      POSTGRES_DB: pdas
-    volumes: [pg-data:/var/lib/postgresql/data]
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pdas"]
-      interval: 5s
-      retries: 10
-
   redis:
     image: redis:8-alpine
     volumes: [redis-data:/data]
@@ -41,19 +29,18 @@ services:
       context: ../..
       dockerfile: infrastructure/docker/api.Dockerfile
     ports: ["4000:4000"]
+    env_file:
+      - path: ../../apps/api/.env
+        required: false
     environment:
       NODE_ENV: production
       PORT: 4000
       CORS_ORIGINS: http://localhost:3000,http://localhost:3001
-      DATABASE_URL: postgresql://pdas:pdas@postgres:5432/pdas
       REDIS_URL: redis://redis:6379
       MEILI_URL: http://meilisearch:7700
       MEILI_MASTER_KEY: pdas-dev-key
-      SMTP_HOST: mailpit
-      SMTP_PORT: 1025
-    depends_on:
-      postgres: { condition: service_healthy }
-      redis: { condition: service_started }
+      LOG_FORMAT: json
+    depends_on: [redis]
 
   web:
     build:
@@ -78,6 +65,5 @@ services:
     depends_on: [api]
 
 volumes:
-  pg-data:
   redis-data:
   meili-data:

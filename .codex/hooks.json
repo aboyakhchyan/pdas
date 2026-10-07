@@ -1,0 +1,17 @@
+{
+    "description": "PDAS: format files Codex edits, mirroring the Claude Code PostToolUse hook",
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "apply_patch",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "\"$(git rev-parse --show-toplevel)/.codex/hooks/format.sh\"",
+                        "statusMessage": "Formatting edited files"
+                    }
+                ]
+            }
+        ]
+    }
+}

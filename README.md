@@ -13,12 +13,12 @@ AI generation of official Armenian documents as PDF.
 | `packages/api-client`                                  | TS client generated from OpenAPI                         |
 | `packages/eslint-config`, `packages/typescript-config` | shared tooling config                                    |
 | `infrastructure/`                                      | Docker, compose, nginx, (future) terraform / k8s         |
-| `scripts/`                                             | setup, codegen, deploy, db backup                        |
+| `scripts/`                                             | setup, codegen, deploy                                   |
 
 ## Quick start
 
 ```bash
-bash scripts/setup.sh   # install, copy .env files, start postgres/redis/meili/mailpit
+bash scripts/setup.sh   # install, copy .env files, start redis/meili/mailpit
 pnpm dev                # web :3000 · admin :3001 · api :4000 (swagger: /docs)
 ```
 

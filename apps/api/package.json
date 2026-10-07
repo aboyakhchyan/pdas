@@ -2,7 +2,9 @@
   "name": "@pdas/api",
   "version": "0.0.0",
   "private": true,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "nest start --watch",
     "build": "nest build",
@@ -14,36 +16,53 @@
     "clean": "rm -rf dist .turbo coverage"
   },
   "dependencies": {
-    "@pdas/core": "workspace:*",
     "@nestjs/common": "^12.0.0",
     "@nestjs/config": "^12.0.0",
     "@nestjs/core": "^12.0.0",
     "@nestjs/platform-express": "^12.0.0",
     "@nestjs/swagger": "^12.0.0",
+    "@pdas/core": "workspace:*",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "dejavu-fonts-ttf": "^2.37.3",
+    "firebase-admin": "^14.5.0",
     "nestjs-i18n": "^10.5.0",
+    "pdfmake": "^0.3.11",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
+    "sharp": "^0.35.5",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@pdas/eslint-config": "workspace:*",
-    "@pdas/typescript-config": "workspace:*",
     "@nestjs/cli": "^12.0.0",
     "@nestjs/schematics": "^12.0.0",
     "@nestjs/testing": "^12.0.0",
+    "@pdas/eslint-config": "workspace:*",
+    "@pdas/typescript-config": "workspace:*",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/multer": "^2.3.0",
     "@types/node": "catalog:",
+    "@types/pdfmake": "^0.3.3",
     "eslint": "catalog:",
     "jest": "^30.0.0",
     "ts-jest": "^29.4.0",
     "typescript": "catalog:"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "json", "ts"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
     "rootDir": "src",
+    "moduleNameMapper": {
+      "^@(common|config|infra|modules|testing)/(.*)$": "<rootDir>/$1/$2"
+    },
     "testRegex": ".*\\.spec\\.ts$",
-    "transform": { "^.+\\.ts$": "ts-jest" },
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
     "testEnvironment": "node"
   }
 }

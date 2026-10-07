@@ -1,16 +1,38 @@
 ---
 name: nest-module
-description: Scaffold a new DDD bounded context (NestJS module) in apps/api with domain, application, infrastructure, presentation layers, Swagger and tests.
+description: Scaffold a new DDD bounded context (NestJS module) in apps/api with domain, application, infrastructure, presentation layers, Swagger and tests. Use when the user asks for a new module/context/feature area in the API, not for one more endpoint in an existing context (use nest-use-case for that).
+argument-hint: '<context-name> [short description]'
 ---
 
-1. Create `apps/api/src/modules/<context>/`:
-    - `domain/` — entities, value objects, domain events, repository/provider ports (no Nest imports)
-    - `application/` — one use case per file, with `<use-case>.spec.ts`
-    - `infrastructure/` — adapters implementing the ports
-    - `presentation/<context>.controller.ts`
-    - `<context>.module.ts` — binds ports to adapters via injection tokens
-2. Define request/response zod schemas in `packages/core/src/<context>/` and export them from
-   `packages/core/src/index.ts`.
-3. Register the module in `apps/api/src/app.module.ts`.
-4. Add `@ApiTags` to the controller and `@ApiOperation`/`@ApiResponse` to each endpoint.
-5. Run `pnpm --filter @pdas/api... check`, then `pnpm gen:api` if the API is running.
+Create the bounded context `$0` in `apps/api/src/modules/$0/`. Follow `apps/api/AGENTS.md` for
+placement and naming and the layer templates in `.claude/rules/api/` for code shape. Use
+`modules/documents/` as the reference implementation.
+
+1. **Model first.** Agree on the aggregate(s), their props, invariants, and the use cases with the
+   user if they are not obvious. Name the Firestore collection(s) (camelCase plural).
+2. **Contract** — `packages/core/src/$0/<entity>.ts`: request schemas + `*Input` types, response
+   schemas + `*Dto` types, `<entity>IdSchema`; export from `packages/core/src/index.ts`. New
+   permissions → `PERMISSIONS` + `ROLE_PERMISSIONS` in `packages/core/src/identity/access.ts`.
+3. **Domain** — `domain/interfaces/<entity>.interface.ts` (`<Entity>Props`, `New<Entity>`,
+   ...), `domain/entities/<entity>.entity.ts`, `domain/ports/<entity>.repository.ts` (abstract
+   class) and any `domain/ports/<name>.port.ts`.
+4. **Application** — one `application/use-cases/<verb-noun>.use-case.ts` per use case; shared
+   logic in `application/services/`; multi-value results in `application/interfaces/`.
+5. **Infrastructure** — `infrastructure/records/<entity>.record.ts` (zod, Timestamp → Date) and
+   `infrastructure/firestore-<entity>.repository.ts` extending the port. Add indexes for every
+   query to `infrastructure/firebase/firestore.indexes.json`.
+6. **Presentation** — `presentation/requests/*.request.ts` (classes `implements` the core input,
+   `@ContractField(schema.shape.x)` per property), `presentation/responses/*.response.ts`
+   (`@ContractProperty`), `presentation/controllers/<plural>.controller.ts` (thin, `@Auth(...)`,
+   `@ApiOperation` + `@Api*Response({ type })`, `@FileUpload`/`@IncomingUpload` for files),
+   `presentation/presenters/<entity>.presenter.ts`.
+7. **Wiring** — `$0.module.ts`: use cases + `{ provide: Port, useClass: Adapter }`; `exports`
+   only the application classes other contexts may call. Register in `src/app.module.ts`.
+8. **Tests** — `testing/in-memory-<entity>.repository.ts`, a `testing/$0-fixture.ts` if more than
+   two specs need the same setup, and a `*.use-case.spec.ts` for every use case.
+9. **i18n** — new error messages or generated text in `src/i18n/{hy,en,ru}/*.json`.
+10. Verify: `pnpm turbo run lint typecheck test --filter=@pdas/api...`. If the API is running,
+    `pnpm gen:api`.
+
+Don't add folders the context doesn't need, and don't create `utils/`, `helpers/`, `constants/`
+or `types/` folders.

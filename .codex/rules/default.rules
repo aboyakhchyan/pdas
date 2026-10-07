@@ -1,0 +1,46 @@
+# Command rules for Codex in this repo — mirror .claude/settings.json permissions.
+# Loaded only when the project .codex/ layer is trusted.
+
+prefix_rule(
+    pattern = ["git", "push"],
+    decision = "forbidden",
+    justification = "Pushing is left to the user.",
+    match = ["git push", "git push origin main", "git push --force"],
+)
+
+prefix_rule(
+    pattern = ["pnpm"],
+    decision = "allow",
+    justification = "pnpm is the only package manager and task runner in this monorepo.",
+    match = ["pnpm check", "pnpm --filter @pdas/api test"],
+    not_match = ["npm install"],
+)
+
+prefix_rule(
+    pattern = ["turbo"],
+    decision = "allow",
+    justification = "Turborepo tasks (lint, typecheck, test, build).",
+    match = ["turbo run lint typecheck test --filter=@pdas/api..."],
+)
+
+prefix_rule(
+    pattern = ["docker", "compose"],
+    decision = "allow",
+    justification = "Local infra: redis, meilisearch, mailpit.",
+    match = ["docker compose -f infrastructure/compose/docker-compose.dev.yml up -d"],
+)
+
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log"]],
+    decision = "allow",
+    justification = "Read-only git inspection.",
+    match = ["git status --short", "git diff --staged", "git log --oneline -5"],
+    not_match = ["git commit -m wip"],
+)
+
+prefix_rule(
+    pattern = [["npm", "yarn"]],
+    decision = "forbidden",
+    justification = "Use pnpm, never npm or yarn.",
+    match = ["npm install", "yarn add zod"],
+)
