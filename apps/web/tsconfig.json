@@ -1,5 +1,5 @@
 {
-  "extends": "@hyework/typescript-config/nextjs.json",
+  "extends": "@pdas/typescript-config/nextjs.json",
   "compilerOptions": {
     "paths": { "@/*": ["./src/*"] }
   },

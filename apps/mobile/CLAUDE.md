@@ -1,10 +1,12 @@
-# apps/mobile — Flutter (iOS / Android)
+# apps/mobile — React Native (iOS / Android)
 
-Riverpod (state), go_router (navigation), dio (HTTP).
+React Native latest stable, TypeScript strict.
 
-- Feature-first: `lib/features/<feature>/{data,domain,presentation}/`
-- `lib/app/` — app root, router, theme. `lib/core/` — network, storage, errors.
-- Always `package:hyework_mobile/...` imports (no relative imports).
-- API base URL via `--dart-define=API_URL=...`.
-- Planned: Dart API client generated from OpenAPI (`pnpm gen:api`).
-- Before finishing: `flutter analyze && flutter test`.
+- Feature-first: `src/features/<feature>/{api,model,screens,components}/`.
+- `src/app/` — app root, navigation, theme. `src/shared/` — network, storage, i18n (`src/shared/i18n/messages/<locale>/<namespace>.json`), ui primitives.
+- Types and validation from `@pdas/core`; HTTP only through `@pdas/api-client`.
+- i18n: hy (default), en, ru — no hardcoded strings.
+- Documents are PDF only: view in-app, share/save as PDF.
+- Auth via Firebase Auth (planned, not integrated yet).
+- API base URL from env config, never hardcoded.
+- Before finishing: `pnpm --filter @pdas/mobile lint typecheck test`.

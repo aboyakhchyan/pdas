@@ -3,7 +3,7 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "bradlc.vscode-tailwindcss",
-    "Dart-Code.flutter",
+    "msjsdiag.vscode-react-native",
     "ms-azuretools.vscode-docker"
   ]
 }

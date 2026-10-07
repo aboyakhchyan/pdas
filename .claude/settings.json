@@ -4,8 +4,6 @@
     "allow": [
       "Bash(pnpm:*)",
       "Bash(turbo:*)",
-      "Bash(flutter:*)",
-      "Bash(dart:*)",
       "Bash(docker compose:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",

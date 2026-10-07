@@ -1,4 +1,4 @@
 {
-  "extends": "@hyework/typescript-config/react-library.json",
+  "extends": "@pdas/typescript-config/react-library.json",
   "include": ["src"]
 }

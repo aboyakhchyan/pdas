@@ -1,20 +1,21 @@
 {
-  "name": "hyework",
+  "name": "pdas",
   "private": true,
   "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">=24"
   },
   "scripts": {
-    "dev": "turbo run dev --filter=!@hyework/mobile",
-    "dev:web": "turbo run dev --filter=@hyework/web...",
-    "dev:admin": "turbo run dev --filter=@hyework/admin...",
-    "dev:api": "turbo run dev --filter=@hyework/api...",
+    "dev": "turbo run dev --filter=!@pdas/mobile",
+    "dev:web": "turbo run dev --filter=@pdas/web...",
+    "dev:admin": "turbo run dev --filter=@pdas/admin...",
+    "dev:api": "turbo run dev --filter=@pdas/api...",
+    "dev:mobile": "pnpm --filter @pdas/mobile start",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "check": "turbo run lint typecheck test --filter=!@hyework/mobile",
+    "check": "turbo run lint typecheck test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "infra:up": "docker compose -f infrastructure/compose/docker-compose.dev.yml up -d",

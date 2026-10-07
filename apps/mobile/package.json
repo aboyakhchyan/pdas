@@ -1,12 +1,46 @@
 {
-  "name": "@hyework/mobile",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev:mobile": "flutter run",
-    "build:apk": "flutter build apk --release",
-    "build:ios": "flutter build ipa --release",
-    "lint:mobile": "flutter analyze",
-    "test:mobile": "flutter test"
-  }
+    "name": "@pdas/mobile",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "react-native start",
+        "android": "react-native run-android",
+        "ios": "react-native run-ios",
+        "pods": "cd ios && bundle install && bundle exec pod install",
+        "lint": "eslint .",
+        "typecheck": "tsc --noEmit",
+        "test": "jest",
+        "clean": "rm -rf .turbo android/build android/app/build ios/build"
+    },
+    "dependencies": {
+        "@pdas/core": "workspace:*",
+        "i18next": "^26.4.2",
+        "react": "19.2.3",
+        "react-i18next": "^17.0.16",
+        "react-native": "0.87.1",
+        "react-native-safe-area-context": "^5.10.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.3",
+        "@babel/runtime": "^7.25.0",
+        "@pdas/eslint-config": "workspace:*",
+        "@react-native-community/cli": "20.2.0",
+        "@react-native-community/cli-platform-android": "20.2.0",
+        "@react-native-community/cli-platform-ios": "20.2.0",
+        "@react-native/babel-preset": "0.87.1",
+        "@react-native/codegen": "0.87.1",
+        "@react-native/gradle-plugin": "0.87.1",
+        "@react-native/jest-preset": "0.87.1",
+        "@react-native/metro-config": "0.87.1",
+        "@react-native/typescript-config": "0.87.1",
+        "@types/jest": "^29.5.13",
+        "@types/react": "^19.2.0",
+        "@types/react-test-renderer": "^19.1.0",
+        "eslint": "catalog:",
+        "jest": "^29.6.3",
+        "prettier": "^3.6.0",
+        "react-test-renderer": "19.2.3",
+        "typescript": "catalog:"
+    }
 }

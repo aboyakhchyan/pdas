@@ -13,10 +13,10 @@ done
 
 pnpm infra:up
 
-if command -v flutter >/dev/null; then
-  (cd apps/mobile && flutter pub get)
+if [ "$(uname)" = "Darwin" ] && command -v pod >/dev/null; then
+  pnpm --filter @pdas/mobile pods
 else
-  echo "flutter not found — skipping mobile setup"
+  echo "CocoaPods not found — skipping iOS pods"
 fi
 
 echo "✔ Ready. Run: pnpm dev"
